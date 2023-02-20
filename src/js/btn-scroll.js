@@ -1,65 +1,50 @@
-
-const btnUp = {
-  el: document.querySelector('.btn-up'),
-  show() {
-  
-    this.el.classList.remove('btn-up_hide');
-  },
-  hide() {
-
-    this.el.classList.add('btn-up_hide');
-  },
-  addEventListener() {
-   
-    window.addEventListener('scroll', () => {
-   
-      const scrollY = window.scrollY || document.documentElement.scrollTop;
-    
+const buttons = {
+  up: {
+    el: document.querySelector('.btn-up'),
+    show() {
+      this.el.classList.remove('btn-up_hide');
+    },
+    hide() {
+      this.el.classList.add('btn-up_hide');
+    },
+    setPosition(scrollY) {
       scrollY > 400 ? this.show() : this.hide();
-    });
-    
-    document.querySelector('.btn-up').onclick = () => {
-   
+    },
+    onClick() {
       window.scrollTo({
         top: 0,
         left: 0,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
-    }
-  }
-}
-
-btnUp.addEventListener();
-
-const btnBottom = {
-   el: document.querySelector('.btn-bottom'),
-  show() {
-  
-    this.el.classList.remove('btn-bottom_hide');
+    },
   },
-  hide() {
-
-    this.el.classList.add('btn-bottom_hide');
-  },
-  addEventListener() {
-   
-    window.addEventListener('scroll', () => {
-   
-      const scrollY = window.scrollY || document.documentElement.scrollTop;
-    
+  bottom: {
+    el: document.querySelector('.btn-bottom'),
+    show() {
+      this.el.classList.remove('btn-bottom_hide');
+    },
+    hide() {
+      this.el.classList.add('btn-bottom_hide');
+    },
+    setPosition(scrollY) {
       scrollY < 400 ? this.show() : this.hide();
-    });
-     document.querySelector('.btn-bottom').onclick = () => {
-   
+    },
+    onClick() {
       window.scrollTo({
         top: 5000,
         left: 0,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
-    }
-  }
-}
+    },
+  },
+};
 
+const handleScrollEvent = () => {
+  const scrollY = window.scrollY || document.documentElement.scrollTop;
+  Object.values(buttons).forEach(button => button.setPosition(scrollY));
+};
 
-btnBottom.addEventListener();
-
+window.addEventListener('scroll', handleScrollEvent);
+Object.values(buttons).forEach(button => {
+  button.el.addEventListener('click', button.onClick);
+});

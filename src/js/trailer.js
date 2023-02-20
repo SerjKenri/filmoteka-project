@@ -3,24 +3,18 @@ import { KEY, API, MEDIA_TYPE } from './constants';
 
 export const getMovieTrailer = async movieId => {
   try {
-    const searchParams = new URLSearchParams({
-      api_key: KEY,
-    });
-
+    const searchParams = new URLSearchParams({ api_key: KEY });
     const response = await axios.get(
       `${API}${MEDIA_TYPE}/${movieId}/videos?${searchParams}`
     );
-    console.log(
-      'here',
-      `${API}${MEDIA_TYPE}/${movieId}/videos?${searchParams}`
-    );
+
     if (response.status !== 200) {
       throw new Error(response.status);
     }
 
     return response.data;
   } catch (error) {
-    // console.log('Підставити картинку, сервер терміново недоступний');
+    // console.log('Show a placeholder image as the server is temporarily unavailable');
   }
 };
 
@@ -45,13 +39,13 @@ const renderYoutubeIframe = movieKey => {
   iframe.src = `https://www.youtube.com/embed/${movieKey}`;
   iframe.frameBorder = '0';
   iframe.allowFullscreen = true;
+
   const trailerContainer = document.querySelector('.film__info-wrapper');
   trailerContainer.classList.add('display-none');
   const iframeContainer = document.createElement('div');
   iframeContainer.classList.add('iframe-container');
-  iframeContainer.setHTML(
-    '<button class="back-button" id="back-to-modal">BACK</button>'
-  );
+  iframeContainer.innerHTML =
+    '<button class="back-button" id="back-to-modal">BACK</button>';
   trailerContainer.after(iframeContainer);
   const backButton = document.getElementById('back-to-modal');
   backButton.addEventListener('click', () => {

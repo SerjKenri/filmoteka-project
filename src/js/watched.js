@@ -1,11 +1,9 @@
 import { btnQueuedRefs } from './queue.js';
 import { getGenre } from './modal-film.js';
 
-
 export const IMG_PATH = 'https://image.tmdb.org/t/p/';
 export const SMALL_SIZE = 'w500';
 // const WATCHED_KEY = 'WatchedMovies';
-
 
 export const btnWatchedRefs = document.querySelector(
   'button[data-action="watched"]'
@@ -33,7 +31,6 @@ export function onBtnWatchedClick() {
   }
   return;
 }
-
 
 export function renderWatchedFilmCards(data) {
   const markup = data

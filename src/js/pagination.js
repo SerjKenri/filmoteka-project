@@ -74,19 +74,17 @@ currentRef.addEventListener('click', ({ target }) => {
   if (target.classList.contains('js-pagination__button'))
     currentPage = Number(target.textContent);
 
-
-
   if (!currentNow) {
     // console.log('Call function from Library');
     // renderQueuedFilmCards(page);
   } else {
-    if (currentNow === 1) {spinnerToggle();
+    if (currentNow === 1) {
+      spinnerToggle();
       getPopulars(currentPage).then(({ page, results, total_pages: pages }) => {
         renderFilmCards(results);
 
         renderPagination(page, pages, currentNow);
         spinnerToggle();
-
       });
     } else {
       movieApi
